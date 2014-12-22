@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+/*
+ * IP/Port configuration file. 
+ * Author: Paruku Paerhati
+ */
+
+var debug = require('debug')('Pangaea');
+var app = require('../app');
+
+// Openshift port/ip configuration
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
+app.set('port', server_port);
+app.set('ip', server_ip_address);
+
+var server = app.listen(app.get('port'), app.get('ip'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});

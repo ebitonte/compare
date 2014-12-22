@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore|Slabo+13px' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id='entirePage'>
+<!--       <div id='header2' class="container-fluid">
+        <h2> United State. </h2>
+      </div> -->
+      <a id='last'>
+        <div class='arrow left'>
+          <img class='arrow-image' src='/images/left.png'></img>
+        </div>
+      </a>
+      <a id='next'>
+        <div class='arrow active right'>
+          <img class='arrow-image' src='/images/right.png'></img>
+        </div>
+      </a>
+      <div id='content'>
+      	<div id ='topContainer' class='container'>
+          <div id='header'>
+            <h1> United State. </h1>
+          </div>
+
+          <div class='row'>
+            <div id='left' class='col-md-6'>
+              <div id='leftPanel' class="panel panel-default">
+                <div class="panel-body">
+                  <div id='leftMap' class='picture'></div>
+                  <label id='leftLabel' for='leftMap'></label>
+                </div>
+              </div>
+            </div>
+            <div id='right' class='col-md-6'>
+              <div id='rightPanel' class="panel panel-default">
+                <div class="panel-body">
+                  <div id='rightMap' class='picture'></div>
+                  <label id='rightLabel' for='rightMap'></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-12'>
+              <div id='article-title'></div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class='container-fluid'>
+          <div class='row'>
+            <div class='col-md-12'>
+              <iframe id='iframe'></iframe>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js'></script>
+    <script src='/javascripts/index.js'></script>
+    <script src='/javascripts/animations.js'></script>
+  </body>
+</html>
