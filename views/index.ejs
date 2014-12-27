@@ -15,7 +15,7 @@
         <h2> United State. </h2>
       </div> -->
       <a id='last'>
-        <div class='arrow left'>
+        <div class='arrow inactive left'>
           <img class='arrow-image' src='/images/left.png'></img>
         </div>
       </a>
@@ -24,22 +24,23 @@
           <img class='arrow-image' src='/images/right.png'></img>
         </div>
       </a>
-      <div id='content'>
-      	<div id ='topContainer' class='container'>
+      <!-- <div id='top'> -->
+      <div id='trigger1'></div>
+      	<div id ='topContainer' class='fluid-container'>
           <div id='header'>
             <h1> United State. </h1>
           </div>
 
           <div class='row'>
-            <div id='left' class='col-md-6'>
+            <div id='left' class='col-xs-5 col-sm-5 col-md-5 col-xs-offset-1 col-sm-offset-1 col-md-offset-1'>
               <div id='leftPanel' class="panel panel-default">
                 <div class="panel-body">
                   <div id='leftMap' class='picture'></div>
-                  <label id='leftLabel' for='leftMap'></label>
+                  <label id='leftLabel' for='leftMap'> Your Location </label>
                 </div>
               </div>
             </div>
-            <div id='right' class='col-md-6'>
+            <div id='right' class='col-xs-5 col-sm-5 col-md-5'>
               <div id='rightPanel' class="panel panel-default">
                 <div class="panel-body">
                   <div id='rightMap' class='picture'></div>
@@ -49,23 +50,39 @@
             </div>
           </div>
           <div class='row'>
-            <div class='col-md-12'>
+            <div class='col-xs-12 col-sm-12 col-md-12'>
               <div id='article-title'></div>
             </div>
           </div>
+          <a id='toBottom'>
+            <div id='bottom-arrow' class='inactive down'>
+              <img class='arrow-image' src='/images/down.png'></img>
+            </div>
+          </a>
         </div>
-        <!-- <div class='container-fluid'>
-          <div class='row'>
-            <div class='col-md-12'>
+      <!-- </div> -->
+      <!-- <div id='bottom'> -->
+      <div id='trigger2'></div>
+      <div id='bottomPinContain'>
+        <div id='bottomContainer'>
+          <a id='toTop'>
+            <div class='active up'>
+              <img class='arrow-image' src='/images/up.png'></img>
+            </div>
+          </a>
+          <div class='container-fluid'>
+            <div class='row'>
               <iframe id='iframe'></iframe>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
-    </div>
+      </div>
+    <!-- </div> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js'></script>
+    <script src='/ScrollMagic/js/jquery.scrollmagic.min.js'></script>
     <script src='/javascripts/index.js'></script>
     <script src='/javascripts/animations.js'></script>
   </body>

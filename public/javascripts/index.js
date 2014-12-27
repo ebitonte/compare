@@ -1,11 +1,11 @@
 var leftMap;
 var rightMap;
 var locationList;
+var controller;
 
 $(document).ready(function() {
-	console.log('pleeeeease');
+	controller = new ScrollMagic();
 	getLocation(function(location) {
-		console.log('where am i?');
 		var leftOptions = {
             zoom: 9,
             center: location
@@ -79,7 +79,8 @@ function textSearch(place) {
 
 function displayMap(side, location) {
 	console.log(location);
-	console.log(location.geometry.location);
+	console.log(location.formatted_address);
+	$('#rightLabel').text(location.formatted_address);
 	var options = {
 		zoom: 9,
 		center: location.geometry.location
@@ -107,7 +108,10 @@ function displayArticle() {
     	rightOptions);
 	textSearch(locationList[articleNum].city);
 	if(locationList[articleNum].related.length > 0) {
+		hasURL();
 		$('#iframe').attr('src', locationList[articleNum].related[0].url);
+	} else {
+		noURL();
 	}
 	setArticleTitle(locationList[articleNum]);
 }
@@ -116,15 +120,36 @@ function setArticleTitle(article) {
 	$('#article-title').text(article.title);
 }
 
+function noURL() {
+	$('#bottomContainer').hide();
+	$('#bottomContainer').addClass('hidden');
+	$('#bottomPinContain').hide();
+	$('#bottom-arrow').removeClass('active').addClass('inactive');
+}
+
+function hasURL() {
+	$('#bottomContainer').show();
+	$('#bottomContainer').removeClass('hidden');
+	$('#bottomPinContain').show();
+	$('#bottom-arrow').removeClass('inactive').addClass('active');
+	var scene = new ScrollScene({triggerElement: "#trigger1", triggerHook: "onLeave", duration: 1000})
+					.setPin("#topContainer")
+					.addTo(controller);
+
+	var scene2 = new ScrollScene({triggerElement: "#trigger2", triggerHook: 'onLeave', duration: 2000})
+					.setPin("#bottomContainer")
+					.addTo(controller);
+}
+
 $('#last').click(function() {
 	var num = $.cookie('articleNum', Number);
 	if(num > 0) {
 		$.cookie('articleNum', num - 1, {expires: .5});
 		displayArticle();
-		$('.arrow.right').addClass('active');
+		$('.arrow.right').removeClass('inactive').addClass('active');
 	} 
 	if(num - 1 == 0) {
-		$('.arrow.left').removeClass('active');
+		$('.arrow.left').removeClass('active').addClass('inactive');
 	}
 });
 
@@ -134,12 +159,12 @@ $('#next').click(function() {
 	console.log(num);
 	if(num < locationList.length) {
 		console.log(locationList.length);
-		$('.arrow.left').addClass('active');
+		$('.arrow.left').removeClass('inactive').addClass('active');
 		$.cookie('articleNum', num + 1, {expires: .5});
 		displayArticle();
 	} 
 	if(num + 1 == locationList.length) {
-		$('.arrow.right').removeClass('active');
+		$('.arrow.right').removeClass('active').addClass('inactive');
 	}
 });
 

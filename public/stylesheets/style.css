@@ -1,17 +1,29 @@
+/*#top {
+	height: 500vh;
+}
+
+#bottom {
+	height: 500vh;
+}*/
+
 .picture {
 	width: 90%;
-	height: 500px;
+	height: 90%;
 	background-color: grey;
 	margin: 0 auto;
 }
 
 .panel-body {
 	text-align: center;
+	padding: 5% 0;
 }
 
 iframe {
+	position: absolute;
 	width: 100%;
-	height: 600px;
+	height: 90%;
+	bottom: 0;
+	left: 0;
 }
 
 body {
@@ -22,8 +34,8 @@ body {
 #header {
 	text-align: center;
 	margin: 0 auto;
-	height: 200px;
-	padding-top: 45px;
+	height: 20vh;
+	padding-top: 5vh;
 }
 
 #header2 {
@@ -41,8 +53,25 @@ h1{
 	color: white;
 }
 
+label {
+	margin-top: 2vh;
+	font-size: 18px;
+}
+
 #topContainer {
 	height: 100vh;
+	top: 0;
+}
+
+#article-title {
+	height: 8vh;
+}
+
+#bottomContainer {
+	position: relative;
+	height: 100vh;
+	width: 100vw;
+	text-align: center;
 }
 
 #leftPanel {
@@ -56,7 +85,7 @@ h1{
 }
 
 .panel-body {
-	height: 550px;
+	height: 65vh;
 }
 
 #article-title {
@@ -68,21 +97,91 @@ h1{
 
 .arrow {
 	position: fixed;
-	width: 150px;
-	height: 150px;
 	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1000;
 }
 
-.arrow.active :hover {
+.arrow-image {
+	z-index: 1000;
+}
+
+.active :hover {
 	background-color: #364593;
 }
 
+.active.right :hover {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.active.left :hover {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.active.down :hover {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.active.up :hover {
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.inactive {
+	-webkit-filter: opacity(0.2);
+}
+
 .arrow.left {
-	left: -30px;
 	float: left;
 }
 
 .arrow.right {
-	right: -50px;
 	float: right;
+	right: 0;
+}
+
+.up {
+	position: absolute;
+	width: 100vw;
+	height: 10vh;
+	margin: 0 auto;
+}
+
+.up > img {
+	position: relative;
+	width: 20vw;
+	height: 8vh;
+}
+
+.down {
+	position: absolute;
+	width: 100vw;
+	height: 7vh;
+	margin: 0 auto;
+	bottom: 0;
+	text-align: center;
+}
+
+.down > img {
+	position: relative;
+	width: 20vw;
+	height: 7vh;
+	margin: 0 auto;
+}
+
+.down.active > img {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	-webkit-animation: flash-active 2s infinite;
+}
+
+@-webkit-keyframes flash-active{
+	from {
+		background-color: #364593;
+	} to {
+		background-color: rgba(0,0,0,0);
+	}
 }
