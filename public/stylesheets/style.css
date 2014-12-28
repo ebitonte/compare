@@ -18,6 +18,10 @@
 	padding: 5% 0;
 }
 
+.panel {
+	margin-bottom: 5px;
+}
+
 iframe {
 	position: absolute;
 	width: 100%;
@@ -49,7 +53,7 @@ body {
 
 h1{
 	font-family: 'La Belle Aurore', cursive;
-	font-size: 90px;
+	font-size: 10vh;
 	color: white;
 }
 
@@ -92,7 +96,7 @@ label {
 	margin: 0 auto;
 	text-align: center;
 	color: #364593;
-	font-size: 36px;
+	font-size: 3vh;
 }
 
 .arrow {
@@ -175,7 +179,11 @@ label {
 .down.active > img {
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
-	-webkit-animation: flash-active 2s infinite;
+	-webkit-animation: flash-active 2s alternate 5;
+}
+
+.down.active > img :hover {
+	background-color: #364593;
 }
 
 @-webkit-keyframes flash-active{

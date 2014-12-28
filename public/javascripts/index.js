@@ -2,6 +2,8 @@ var leftMap;
 var rightMap;
 var locationList;
 var controller;
+var scene;
+var scene2;
 
 $(document).ready(function() {
 	controller = new ScrollMagic();
@@ -121,6 +123,9 @@ function setArticleTitle(article) {
 }
 
 function noURL() {
+	if($('#topContainer').parent().hasClass('scrollmagic-pin-spacer')) {
+		controller.removeScene(scene1, scene2);
+	}
 	$('#bottomContainer').hide();
 	$('#bottomContainer').addClass('hidden');
 	$('#bottomPinContain').hide();
@@ -132,13 +137,15 @@ function hasURL() {
 	$('#bottomContainer').removeClass('hidden');
 	$('#bottomPinContain').show();
 	$('#bottom-arrow').removeClass('inactive').addClass('active');
-	var scene = new ScrollScene({triggerElement: "#trigger1", triggerHook: "onLeave", duration: 1000})
-					.setPin("#topContainer")
-					.addTo(controller);
+	if(!$('#topContainer').parent().hasClass('scrollmagic-pin-spacer')) {
+		scene = new ScrollScene({triggerElement: "#trigger1", triggerHook: "onLeave", duration: 1000})
+						.setPin("#topContainer")
+						.addTo(controller);
 
-	var scene2 = new ScrollScene({triggerElement: "#trigger2", triggerHook: 'onLeave', duration: 2000})
-					.setPin("#bottomContainer")
-					.addTo(controller);
+		scene2 = new ScrollScene({triggerElement: "#trigger2", triggerHook: 'onLeave', duration: 2000})
+						.setPin("#bottomContainer")
+						.addTo(controller);
+	}
 }
 
 $('#last').click(function() {
