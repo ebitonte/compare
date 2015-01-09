@@ -232,6 +232,7 @@ function hasURL() {
 
 $('#last').click(function() {
 	var num = $.cookie('articleNum', Number);
+	$('#bottom-arrow').removeClass('active').addClass('inactive');
 	if(num > 0) {
 		$.cookie('articleNum', num - 1, {expires: .5});
 		displayArticle(goToStreetView);
@@ -246,6 +247,7 @@ $('#next').click(function() {
 	console.log('next click');
 	var num = $.cookie('articleNum', Number);
 	console.log(num);
+	$('#bottom-arrow').removeClass('active').addClass('inactive');
 	if(num < locationList.length) {
 		console.log(locationList.length);
 		$('.arrow.left').removeClass('inactive').addClass('active');
