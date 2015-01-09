@@ -151,8 +151,16 @@ function goToStreetView(both) {
            		console.log(status, data);
            		if(status == google.maps.StreetViewStatus.OK) {
            			console.log(data);
-           			var rightPan = new google.maps.StreetViewPanorama(document.getElementById('rightMap'));
-           			rightPan.setPano(data.location.pano);
+           			var rightHeading = google.maps.geometry.spherical.computeHeading(results[0].geometry.location, data.location.latLng);
+           			var rightPanOptions = {
+           				position: data.location.latLng,
+           				pov: {
+           					heading: 360 - rightHeading,
+           					pitch: 0
+           				}
+           			};
+           			var rightPan = new google.maps.StreetViewPanorama(document.getElementById('rightMap'), rightPanOptions);
+           			//rightPan.setPano(data.location.pano);
            		}
            	});
 			//var rightPan = new google.maps.StreetViewPanorama(document.getElementById('rightMap'), panoramaOptions);
@@ -169,8 +177,16 @@ function goToStreetView(both) {
 			           	sv.getPanoramaByLocation(left_results[0].geometry.location, 100, function(left_data, lstatus) {
 			           		console.log(lstatus, left_data);
 			           		if(lstatus == google.maps.StreetViewStatus.OK) {
-			           			var leftPan = new google.maps.StreetViewPanorama(document.getElementById('leftMap'));
-			           			leftPan.setPano(left_data.location.pano);
+			           			var leftHeading = google.maps.geometry.spherical.computeHeading(left_results[0].geometry.location, left_data.location.latLng);
+			           			var leftPanOptions = {
+			           				position: left_data.location.latLng,
+			           				pov: {
+			           					heading: 360 - leftHeading,
+			           					pitch: 0
+			           				}
+			           			};
+			           			var leftPan = new google.maps.StreetViewPanorama(document.getElementById('leftMap'), leftPanOptions);
+			           			// leftPan.setPano(left_data.location.pano);
 			           		}
 			           	});
 			       	}
