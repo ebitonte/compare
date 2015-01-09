@@ -1,9 +1,12 @@
 var leftMap;
 var rightMap;
+var leftPano = $('leftPano');
+var rightPano = $('rightPano');
 var locationList;
 var controller;
 var scene;
 var scene2;
+var sv = new google.maps.StreetViewService();
 
 $(document).ready(function() {
 	controller = new ScrollMagic();
@@ -28,7 +31,7 @@ $(document).ready(function() {
        	});
 		console.log(locationList);
 		$.cookie('articleNum', 0, {expires: .5});
-       	displayArticle();
+       	displayArticle(goToStreetView);
 	})
 	.fail(function(err) {
 		console.log(err);
@@ -60,16 +63,43 @@ function articleHasLocation(article) {
 	}
 }
 
-function textSearch(place) {
+function displayArticle(callback) {
+	var articleNum = $.cookie('articleNum');
+	console.log(articleNum);
+	articleNum = articleNum ? articleNum : 0;
+	console.log(articleNum);
+	var center = new google.maps.LatLng(0,0);
+	var rightOptions = {
+		zoom: 1,
+		center: center
+	};
+	rightMap = new google.maps.Map(document.getElementById('rightMap'),
+    	rightOptions);
+	textSearch(1, locationList[articleNum].city, callback);
+	if(locationList[articleNum].related.length > 0) {
+		hasURL();
+		$('#iframe').attr('src', locationList[articleNum].related[0].url);
+	} else {
+		noURL();
+	}
+	setArticleTitle(locationList[articleNum]);
+}
+
+/**
+* 
+* side: 0 = leftSide, 1 = rightSide
+*/
+function textSearch(side, place, callback) {
 	var request = {
 		query: place
 	};
-	service = new google.maps.places.PlacesService(rightMap);
+	var sideMap = side ? rightMap : leftMap;
+	service = new google.maps.places.PlacesService(sideMap);
 	service.textSearch(request, function(results, status) {
        	console.log(status);
        	console.log(results);
        	if (status == google.maps.places.PlacesServiceStatus.OK) {
-           	 displayMap(true, results[0]);
+           	 displayMap(true, results[0], callback);
        	}
     });
 }
@@ -79,7 +109,7 @@ function textSearch(place) {
 * 	side: 0 = leftSide, 1 = rightSide
 */
 
-function displayMap(side, location) {
+function displayMap(side, location, callback) {
 	console.log(location);
 	console.log(location.formatted_address);
 	$('#rightLabel').text(location.formatted_address);
@@ -94,28 +124,80 @@ function displayMap(side, location) {
 		leftMap = new google.maps.Map(document.getElementById('leftMap'),
        		options);
 	}
+	callback(true);
 }
 
-function displayArticle() {
-	var articleNum = $.cookie('articleNum');
-	console.log(articleNum);
-	articleNum = articleNum ? articleNum : 0;
-	console.log(articleNum);
-	var center = new google.maps.LatLng(0,0);
-	var rightOptions = {
-		zoom: 1,
-		center: center
+function goToStreetView(both) {
+	var places = ['secondary school', 'hospital', 'grocery store', 'gas station', 'church'];
+	var shuffled = shuffle(places);
+	var right_request = {
+		location: rightMap.getCenter(),
+		query : shuffled[0],
+		radius : '50'
 	};
-	rightMap = new google.maps.Map(document.getElementById('rightMap'),
-    	rightOptions);
-	textSearch(locationList[articleNum].city);
-	if(locationList[articleNum].related.length > 0) {
-		hasURL();
-		$('#iframe').attr('src', locationList[articleNum].related[0].url);
-	} else {
-		noURL();
+	var left_request = {
+		location : leftMap.getCenter(),
+		query : shuffled[0],
+		radius : '50'
 	}
-	setArticleTitle(locationList[articleNum]);
+	$('#location').text(shuffled[0]);
+	var serviceRight = new google.maps.places.PlacesService(rightMap);
+	console.log(rightMap);
+	serviceRight.textSearch(right_request, function(results, status) {
+		console.log('STREET VIEW HAPPENING');
+       	console.log(results);
+       	if (status == google.maps.places.PlacesServiceStatus.OK) {
+           	sv.getPanoramaByLocation(results[0].geometry.location, 100, function(data, status) {
+           		console.log(status, data);
+           		if(status == google.maps.StreetViewStatus.OK) {
+           			console.log(data);
+           			var rightPan = new google.maps.StreetViewPanorama(document.getElementById('rightMap'));
+           			rightPan.setPano(data.location.pano);
+           		}
+           	});
+			//var rightPan = new google.maps.StreetViewPanorama(document.getElementById('rightMap'), panoramaOptions);
+			// var rightPan = rightMap.getStreetView();
+			// rightPan.setVisible(true);
+			// console.log(rightPan);
+			// rightMap.setStreetView(rightPan);
+			if(both) {
+				var serviceLeft = new google.maps.places.PlacesService(leftMap);
+			    serviceLeft.textSearch(left_request, function(left_results, left_status) {
+					console.log('STREET VIEW HAPPENING');
+			       	console.log(left_results);
+			       	if (left_status == google.maps.places.PlacesServiceStatus.OK) {
+			           	sv.getPanoramaByLocation(left_results[0].geometry.location, 100, function(left_data, lstatus) {
+			           		console.log(lstatus, left_data);
+			           		if(lstatus == google.maps.StreetViewStatus.OK) {
+			           			var leftPan = new google.maps.StreetViewPanorama(document.getElementById('leftMap'));
+			           			leftPan.setPano(left_data.location.pano);
+			           		}
+			           	});
+			       	}
+	    		});
+			}
+       	}
+    });
+}
+
+function processSVData(data, status) {
+	if (status == google.maps.StreetViewStatus.OK) {
+
+	}
+}
+
+function shuffle(array) {
+  	var m = array.length, t, i;
+  	// While there remain elements to shuffle…
+  	while (m) {
+    	// Pick a remaining element…
+    	i = Math.floor(Math.random() * m--);
+    	// And swap it with the current element.
+    	t = array[m];
+    	array[m] = array[i];
+    	array[i] = t;
+  	}
+  	return array;
 }
 
 function setArticleTitle(article) {
@@ -124,7 +206,7 @@ function setArticleTitle(article) {
 
 function noURL() {
 	if($('#topContainer').parent().hasClass('scrollmagic-pin-spacer')) {
-		controller.removeScene(scene1, scene2);
+		controller.removeScene([scene1, scene2]);
 	}
 	$('#bottomContainer').hide();
 	$('#bottomContainer').addClass('hidden');
@@ -152,7 +234,7 @@ $('#last').click(function() {
 	var num = $.cookie('articleNum', Number);
 	if(num > 0) {
 		$.cookie('articleNum', num - 1, {expires: .5});
-		displayArticle();
+		displayArticle(goToStreetView);
 		$('.arrow.right').removeClass('inactive').addClass('active');
 	} 
 	if(num - 1 == 0) {
@@ -168,7 +250,7 @@ $('#next').click(function() {
 		console.log(locationList.length);
 		$('.arrow.left').removeClass('inactive').addClass('active');
 		$.cookie('articleNum', num + 1, {expires: .5});
-		displayArticle();
+		displayArticle(goToStreetView);
 	} 
 	if(num + 1 == locationList.length) {
 		$('.arrow.right').removeClass('active').addClass('inactive');

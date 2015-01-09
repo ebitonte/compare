@@ -14,12 +14,12 @@
 <!--       <div id='header2' class="container-fluid">
         <h2> United State. </h2>
       </div> -->
-      <a id='last'>
+      <a id='last' href='#'>
         <div class='arrow inactive left'>
           <img class='arrow-image' src='/images/left.png'></img>
         </div>
       </a>
-      <a id='next'>
+      <a id='next' href='#'>
         <div class='arrow active right'>
           <img class='arrow-image' src='/images/right.png'></img>
         </div>
@@ -30,12 +30,13 @@
           <div id='header'>
             <h1> United State. </h1>
           </div>
-
+          <div id='location'></div>
           <div class='row'>
             <div id='left' class='col-xs-5 col-sm-5 col-md-5 col-xs-offset-1 col-sm-offset-1 col-md-offset-1'>
               <div id='leftPanel' class="panel panel-default">
                 <div class="panel-body">
                   <div id='leftMap' class='picture'></div>
+                  <div id='leftPano' class='hidden'></div>
                   <label id='leftLabel' for='leftMap'> Your Location </label>
                 </div>
               </div>
@@ -44,6 +45,7 @@
               <div id='rightPanel' class="panel panel-default">
                 <div class="panel-body">
                   <div id='rightMap' class='picture'></div>
+                  <div id='rightPano' class='hidden'></div>
                   <label id='rightLabel' for='rightMap'></label>
                 </div>
               </div>
@@ -54,7 +56,7 @@
               <div id='article-title'></div>
             </div>
           </div>
-          <a id='toBottom'>
+          <a id='toBottom' href='#s'>
             <div id='bottom-arrow' class='inactive down'>
               <img class='arrow-image' src='/images/down.png'></img>
             </div>

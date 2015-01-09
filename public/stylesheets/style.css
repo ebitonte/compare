@@ -5,6 +5,9 @@
 #bottom {
 	height: 500vh;
 }*/
+.hidden {
+	display: none;
+}
 
 .picture {
 	width: 90%;
@@ -38,8 +41,8 @@ body {
 #header {
 	text-align: center;
 	margin: 0 auto;
-	height: 20vh;
-	padding-top: 5vh;
+	height: 15vh;
+	padding-top: 3vh;
 }
 
 #header2 {
@@ -57,9 +60,21 @@ h1{
 	color: white;
 }
 
+#location {
+	font-size: 3vh;
+	color: #364593;
+	background-color: white;
+	border-right: 2px solid grey;
+	border-bottom: 2px solid grey;
+	width: 30vw;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 2vh;
+}
+
 label {
 	margin-top: 2vh;
-	font-size: 18px;
+	font-size: 2vh;
 }
 
 #topContainer {
@@ -179,7 +194,7 @@ label {
 .down.active > img {
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
-	-webkit-animation: flash-active 2s alternate 5;
+	-webkit-animation: flash-active 2s alternate 10;
 }
 
 .down.active > img :hover {
