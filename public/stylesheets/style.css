@@ -31,6 +31,7 @@ iframe {
 	height: 90%;
 	bottom: 0;
 	left: 0;
+	background-color: white;
 }
 
 body {
@@ -70,6 +71,8 @@ h1{
 	text-align: center;
 	margin: 0 auto;
 	margin-bottom: 2vh;
+	height: 4.25vh;
+	border-radius: 3px;
 }
 
 label {
@@ -198,6 +201,10 @@ label {
 }
 
 .down.active > img :hover {
+	background-color: #364593;
+}
+
+#up-arrow {
 	background-color: #364593;
 }
 

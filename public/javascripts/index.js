@@ -16,25 +16,25 @@ $(document).ready(function() {
             center: location
         };
         leftMap = new google.maps.Map(document.getElementById('leftMap'),
-            leftOptions);       	
-	})
-	$.ajax({
-		url: 'http://um.media.mit.edu:5005/'
-	})
-	.done(function(result) {
-		locationList = [];
-		result.json_list.forEach(function(i) {
-			var articleWithLocation = articleHasLocation(i);
-			if(articleWithLocation) {
-				locationList.push(articleWithLocation);
-			}
-       	});
-		console.log(locationList);
-		$.cookie('articleNum', 0, {expires: .5});
-       	displayArticle(goToStreetView);
-	})
-	.fail(function(err) {
-		console.log(err);
+            leftOptions);
+        $.ajax({
+			url: 'http://um.media.mit.edu:5005/'
+		})
+		.done(function(result) {
+			locationList = [];
+			result.json_list.forEach(function(i) {
+				var articleWithLocation = articleHasLocation(i);
+				if(articleWithLocation) {
+					locationList.push(articleWithLocation);
+				}
+	       	});
+			console.log(locationList);
+			$.cookie('articleNum', 0, {expires: .5});
+	       	displayArticle(goToStreetView);
+		})
+		.fail(function(err) {
+			console.log(err);
+		});       	
 	});
 });
 
@@ -235,13 +235,17 @@ function hasURL() {
 	$('#bottomContainer').removeClass('hidden');
 	$('#bottomPinContain').show();
 	$('#bottom-arrow').removeClass('inactive').addClass('active');
+	var topTween = new TweenMax('#bottom-arrow', 0.5, {backgroundColor: "#364593"});
+	var bottomTween = new TweenMax('#up-arrow', 0.5, {backgroundColor: "#0C2A55"})
 	if(!$('#topContainer').parent().hasClass('scrollmagic-pin-spacer')) {
 		scene = new ScrollScene({triggerElement: "#trigger1", triggerHook: "onLeave", duration: 1000})
 						.setPin("#topContainer")
+						.setTween(topTween)
 						.addTo(controller);
 
 		scene2 = new ScrollScene({triggerElement: "#trigger2", triggerHook: 'onLeave', duration: 2000})
 						.setPin("#bottomContainer")
+						.setTween(bottomTween)
 						.addTo(controller);
 	}
 }

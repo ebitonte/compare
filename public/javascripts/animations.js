@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 	$('#toTop').click(function() {
 		$('html, body').stop().animate({
-		   scrollTop: 0
+		   scrollTop: $trigger2
 		}, 400, function() {
 			status = 'top';
 		});

@@ -56,7 +56,7 @@
               <div id='article-title'></div>
             </div>
           </div>
-          <a id='toBottom' href='#s'>
+          <a id='toBottom' href='#'>
             <div id='bottom-arrow' class='inactive down'>
               <img class='arrow-image' src='/images/down.png'></img>
             </div>
@@ -67,12 +67,12 @@
       <div id='trigger2'></div>
       <div id='bottomPinContain'>
         <div id='bottomContainer'>
-          <a id='toTop'>
-            <div class='active up'>
+          <a id='toTop' href='#'>
+            <div id='up-arrow' class='active up'>
               <img class='arrow-image' src='/images/up.png'></img>
             </div>
           </a>
-          <div class='container-fluid'>
+          <div id='iframe-contain' class='container-fluid'>
             <div class='row'>
               <iframe id='iframe'></iframe>
             </div>
@@ -85,6 +85,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js'></script>
     <script src='/ScrollMagic/js/jquery.scrollmagic.min.js'></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/TweenMax.min.js"></script>
     <script src='/javascripts/index.js'></script>
     <script src='/javascripts/animations.js'></script>
   </body>
